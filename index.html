@@ -428,26 +428,13 @@
                 text-shadow: none;
             }
 
-            /* 手機版影片控制提示 */
+            /* 手機版影片控制提示 - 移除重疊提示 */
             .video-container::before {
-                content: "📱 滑動觀看";
-                position: absolute;
-                bottom: 20px;
-                left: 50%;
-                transform: translateX(-50%);
-                background: rgba(0, 0, 0, 0.8);
-                color: white;
-                padding: 8px 16px;
-                border-radius: 25px;
-                font-size: 0.85rem;
-                z-index: 15;
-                opacity: 0.9;
-                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-                white-space: nowrap;
+                display: none;
             }
 
             .video-container.playing::before {
-                content: "⏸ 點擊暫停";
+                display: none;
             }
 
             /* 改善手機滑動體驗 */
