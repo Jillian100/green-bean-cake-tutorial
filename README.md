@@ -42,6 +42,16 @@ python -m SimpleHTTPServer 8000
 # 然後在瀏覽器中開啟 http://localhost:8000
 ```
 
+### 方法三：線上瀏覽（GitHub Pages）
+如果此專案已部署到 GitHub Pages，可以直接在瀏覽器中訪問：
+```
+https://你的用戶名.github.io/倉庫名稱/
+```
+
+## 🌐 部署到 GitHub Pages
+
+詳細的部署步驟請參考 [deploy.md](deploy.md) 檔案。
+
 ## 📋 製作步驟
 
 1. **攪拌（細化）** - 將綠豆仁攪拌至細化狀態
