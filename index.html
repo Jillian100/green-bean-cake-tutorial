@@ -364,8 +364,8 @@
             /* 手機版影片優化 */
             .video-container {
                 margin: 10px 0;
-                max-width: 95vw;
-                width: 95vw;
+                max-width: 90vw;
+                width: 90vw;
                 border-radius: 15px;
                 box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
                 transform: none;
@@ -381,7 +381,7 @@
             /* 手機版影片適中顯示 */
             .video-container video {
                 width: 100%;
-                height: 70vh;
+                height: 60vh;
                 object-fit: cover;
                 border-radius: 15px;
                 position: relative;
@@ -496,6 +496,30 @@
             /* 手機版觸控優化 */
             .video-container {
                 -webkit-tap-highlight-color: transparent;
+            }
+
+            /* iPad 專用樣式 */
+            @media (min-width: 768px) and (max-width: 1024px) {
+                .video-container {
+                    max-width: 80vw;
+                    width: 80vw;
+                    margin: 15px auto;
+                }
+
+                .video-container video {
+                    height: 50vh;
+                }
+
+                .step {
+                    padding: 15px;
+                    margin: 15px 0;
+                }
+
+                .step-header {
+                    padding: 20px 25px;
+                    margin-bottom: 20px;
+                }
+            }
                 touch-action: manipulation;
             }
         }
@@ -690,8 +714,8 @@
                     }
                 });
             }, {
-                threshold: 0.7, // 當影片 70% 可見時觸發（更精確的觸發）
-                rootMargin: '0px 0px -5% 0px' // 更精確的觸發邊距
+                threshold: 0.5, // 當影片 50% 可見時觸發（更適合手機）
+                rootMargin: '0px 0px -10% 0px' // 更寬鬆的觸發邊距
             });
             
             // 觀察所有影片
