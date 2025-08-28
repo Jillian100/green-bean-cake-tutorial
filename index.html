@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>綠豆糕製作教學</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Microsoft JhengHei', 'PingFang TC', 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            color: #2c5530;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            color: #666;
+        }
+
+        .master-section {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 40px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .master-section h2 {
+            color: #2c5530;
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .master-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .master-info {
+            display: flex;
+            align-items: flex-start;
+            gap: 25px;
+            padding: 20px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 15px;
+            border: 2px solid #dee2e6;
+        }
+
+        .master-avatar {
+            font-size: 4rem;
+            background: linear-gradient(135deg, #28a745, #20c997);
+            color: white;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 25px rgba(40, 167, 69, 0.3);
+            flex-shrink: 0;
+        }
+
+        .master-details {
+            flex: 1;
+        }
+
+        .master-details h3 {
+            color: #2c5530;
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .master-title {
+            color: #28a745;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .master-description {
+            color: #555;
+            line-height: 1.7;
+            margin-bottom: 20px;
+            font-size: 1rem;
+        }
+
+        .master-stats {
+            display: flex;
+            gap: 20px;
+            justify-content: flex-start;
+        }
+
+        .stat {
+            text-align: center;
+            padding: 10px 15px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            border: 1px solid #dee2e6;
+            min-width: 80px;
+        }
+
+        .stat-number {
+            display: block;
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #28a745;
+        }
+
+        .stat-label {
+            display: block;
+            font-size: 0.8rem;
+            color: #666;
+            margin-top: 2px;
+        }
+
+        .materials-section {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 40px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .materials-section h2 {
+            color: #2c5530;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .materials-content {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 5px solid #28a745;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .steps-section {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .steps-section h2 {
+            color: #2c5530;
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .step {
+            margin-bottom: 40px;
+            padding: 25px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            border: 2px solid #e9ecef;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .step:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .step-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .step-number {
+            background: linear-gradient(135deg, #28a745, #20c997);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-right: 20px;
+            box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+        }
+
+        .step-title {
+            font-size: 1.4rem;
+            color: #2c5530;
+            font-weight: bold;
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .video-container video {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .video-controls {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .video-controls button {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background 0.3s ease;
+        }
+
+        .video-controls button:hover {
+            background: #218838;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .step-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .step-number {
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+
+            .master-info {
+                flex-direction: column;
+                text-align: center;
+                gap: 20px;
+            }
+
+            .master-avatar {
+                align-self: center;
+            }
+
+            .master-stats {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+
+            .stat {
+                min-width: 70px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🍃 綠豆糕製作教學 🍃</h1>
+            <p>傳統手工藝，美味傳承</p>
+        </div>
+
+
+
+        <div class="materials-section">
+            <h2>📋 準備材料</h2>
+            <div class="materials-content">
+                <strong>材料：</strong>兩斤綠豆仁（去殼的綠豆）<br>
+                <strong>電鍋蒸煮：</strong>內鍋1:1水、外鍋3杯。
+            </div>
+        </div>
+
+        <div class="steps-section">
+            <h2>🎬 製作步驟</h2>
+            
+            <div class="step">
+                <div class="step-header">
+                    <div class="step-number">1</div>
+                    <div class="step-title">攪拌（細化）</div>
+                </div>
+                <div class="video-container">
+                    <video controls>
+                        <source src="綠豆糕 1. 攪拌 (細化).m4v" type="video/mp4">
+                        您的瀏覽器不支援影片播放。
+                    </video>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-header">
+                    <div class="step-number">2</div>
+                    <div class="step-title">捏團</div>
+                </div>
+                <div class="video-container">
+                    <video controls>
+                        <source src="綠豆糕 2. 捏團.m4v" type="video/mp4">
+                        您的瀏覽器不支援影片播放。
+                    </video>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-header">
+                    <div class="step-number">3</div>
+                    <div class="step-title">壓型（一）</div>
+                </div>
+                <div class="video-container">
+                    <video controls>
+                        <source src="綠豆糕 3. 壓型 ㄧ.m4v" type="video/mp4">
+                        您的瀏覽器不支援影片播放。
+                    </video>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-header">
+                    <div class="step-number">4</div>
+                    <div class="step-title">壓型（二）</div>
+                </div>
+                <div class="video-container">
+                    <video controls>
+                        <source src="綠豆糕 4. 壓型二.m4v" type="video/mp4">
+                        您的瀏覽器不支援影片播放。
+                    </video>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-header">
+                    <div class="step-number">5</div>
+                    <div class="step-title">包裝</div>
+                </div>
+                <div class="video-container">
+                    <video controls>
+                        <source src="綠豆糕 5. 包裝.m4v" type="video/mp4">
+                        您的瀏覽器不支援影片播放。
+                    </video>
+                </div>
+            </div>
+        </div>
+
+        <div class="master-section">
+            <h2>👩‍🍳 認識王媽媽（潘秋綿）</h2>
+            <div class="master-content">
+                <div class="master-info">
+                    <div class="master-avatar">👩‍🍳</div>
+                    <div class="master-details">
+                        <h3>潘秋綿 老師</h3>
+                        <p class="master-title">傳統糕點製作大師</p>
+                        <p class="master-description">
+                            王媽媽擁有超過30年的傳統糕點製作經驗，專精於綠豆糕、紅豆糕等傳統點心的製作。
+                            她的綠豆糕以其細膩的口感、完美的比例和傳統的製作工藝而聞名。
+                            多年來，她堅持使用最優質的原料，傳承著這份珍貴的台灣傳統美食文化。
+                            透過這5個精心錄製的教學影片，王媽媽希望將這份珍貴的技藝分享給更多人。
+                        </p>
+                        <div class="master-stats">
+                            <div class="stat">
+                                <span class="stat-number">30+</span>
+                                <span class="stat-label">年經驗</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-number">1000+</span>
+                                <span class="stat-label">次製作</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-number">50+</span>
+                                <span class="stat-label">位學徒</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>✨ 享受製作綠豆糕的樂趣，傳承傳統美食文化 ✨</p>
+        </div>
+    </div>
+
+    <script>
+        // 為影片添加一些互動效果
+        document.addEventListener('DOMContentLoaded', function() {
+            const videos = document.querySelectorAll('video');
+            
+            videos.forEach(video => {
+                // 添加載入動畫
+                video.addEventListener('loadstart', function() {
+                    this.style.opacity = '0.7';
+                });
+                
+                video.addEventListener('canplay', function() {
+                    this.style.opacity = '1';
+                });
+                
+                // 添加錯誤處理
+                video.addEventListener('error', function() {
+                    this.innerHTML = '<div style="padding: 50px; text-align: center; color: #666;">影片載入失敗，請檢查檔案路徑</div>';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
