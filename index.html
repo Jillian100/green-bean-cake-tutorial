@@ -182,8 +182,25 @@
         .steps-section h2 {
             color: #2c5530;
             font-size: 1.8rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .usage-tip {
+            background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+            border: 2px solid #2196f3;
+            border-radius: 10px;
+            padding: 15px;
             margin-bottom: 30px;
             text-align: center;
+            box-shadow: 0 4px 15px rgba(33, 150, 243, 0.2);
+        }
+
+        .usage-tip p {
+            margin: 0;
+            color: #1565c0;
+            font-size: 1rem;
+            font-weight: 500;
         }
 
         .step {
@@ -235,6 +252,35 @@
             border-radius: 15px;
             overflow: hidden;
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .video-container:hover {
+            transform: scale(1.02);
+        }
+
+        .video-container::before {
+            content: "▶ 滑動觀看";
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            z-index: 10;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .video-container:hover::before {
+            opacity: 1;
+        }
+
+        .video-container.playing::before {
+            content: "⏸ 點擊暫停";
         }
 
         .video-container video {
@@ -311,6 +357,27 @@
             .stat {
                 min-width: 70px;
             }
+
+            /* 手機版影片優化 */
+            .video-container {
+                margin: 10px 0;
+            }
+
+            .video-container::before {
+                font-size: 0.7rem;
+                padding: 3px 8px;
+            }
+
+            /* 改善手機滑動體驗 */
+            .step {
+                scroll-margin-top: 20px;
+            }
+
+            /* 手機版觸控優化 */
+            .video-container {
+                -webkit-tap-highlight-color: transparent;
+                touch-action: manipulation;
+            }
         }
     </style>
 </head>
@@ -333,6 +400,9 @@
 
         <div class="steps-section">
             <h2>🎬 製作步驟</h2>
+            <div class="usage-tip">
+                <p>💡 <strong>使用提示：</strong>滑動頁面即可自動播放影片，點擊影片可手動控制播放/暫停</p>
+            </div>
             
             <div class="step">
                 <div class="step-header">
@@ -439,11 +509,18 @@
     </div>
 
     <script>
-        // 為影片添加一些互動效果
+        // 為影片添加抖音風格的滑動播放功能
         document.addEventListener('DOMContentLoaded', function() {
             const videos = document.querySelectorAll('video');
+            let currentPlayingVideo = null;
             
+            // 設置影片基本屬性
             videos.forEach(video => {
+                // 設置影片屬性
+                video.muted = true; // 靜音播放（避免自動播放限制）
+                video.loop = true; // 循環播放
+                video.playsInline = true; // 內聯播放（iOS 支援）
+                
                 // 添加載入動畫
                 video.addEventListener('loadstart', function() {
                     this.style.opacity = '0.7';
@@ -456,6 +533,106 @@
                 // 添加錯誤處理
                 video.addEventListener('error', function() {
                     this.innerHTML = '<div style="padding: 50px; text-align: center; color: #666;">影片載入失敗，請檢查檔案路徑</div>';
+                });
+            });
+            
+            // 創建 Intersection Observer 來監控影片可見性
+            const videoObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    const video = entry.target;
+                    const container = video.closest('.video-container');
+                    
+                    if (entry.isIntersecting) {
+                        // 影片進入可視區域，開始播放
+                        if (currentPlayingVideo && currentPlayingVideo !== video) {
+                            currentPlayingVideo.pause();
+                            const prevContainer = currentPlayingVideo.closest('.video-container');
+                            if (prevContainer) {
+                                prevContainer.classList.remove('playing');
+                            }
+                        }
+                        video.play().then(() => {
+                            currentPlayingVideo = video;
+                            if (container) {
+                                container.classList.add('playing');
+                            }
+                        }).catch(error => {
+                            console.log('自動播放失敗，需要用戶互動:', error);
+                        });
+                    } else {
+                        // 影片離開可視區域，暫停播放
+                        if (currentPlayingVideo === video) {
+                            video.pause();
+                            currentPlayingVideo = null;
+                            if (container) {
+                                container.classList.remove('playing');
+                            }
+                        }
+                    }
+                });
+            }, {
+                threshold: 0.5, // 當影片 50% 可見時觸發
+                rootMargin: '0px 0px -10% 0px' // 稍微提前觸發
+            });
+            
+            // 觀察所有影片
+            videos.forEach(video => {
+                videoObserver.observe(video);
+            });
+            
+            // 添加觸控手勢支援
+            let touchStartY = 0;
+            let touchEndY = 0;
+            
+            document.addEventListener('touchstart', function(e) {
+                touchStartY = e.touches[0].clientY;
+            }, { passive: true });
+            
+            document.addEventListener('touchend', function(e) {
+                touchEndY = e.changedTouches[0].clientY;
+                const diff = touchStartY - touchEndY;
+                
+                // 如果滑動距離足夠大，觸發影片切換
+                if (Math.abs(diff) > 50) {
+                    // 可以添加額外的滑動邏輯
+                    console.log('滑動檢測:', diff > 0 ? '向上滑動' : '向下滑動');
+                }
+            }, { passive: true });
+            
+            // 添加鍵盤支援（可選）
+            document.addEventListener('keydown', function(e) {
+                if (e.code === 'Space') {
+                    e.preventDefault();
+                    if (currentPlayingVideo) {
+                        if (currentPlayingVideo.paused) {
+                            currentPlayingVideo.play();
+                        } else {
+                            currentPlayingVideo.pause();
+                        }
+                    }
+                }
+            });
+            
+            // 添加點擊播放/暫停功能（作為備用）
+            videos.forEach(video => {
+                video.addEventListener('click', function() {
+                    const container = this.closest('.video-container');
+                    
+                    if (this.paused) {
+                        this.play();
+                        currentPlayingVideo = this;
+                        if (container) {
+                            container.classList.add('playing');
+                        }
+                    } else {
+                        this.pause();
+                        if (currentPlayingVideo === this) {
+                            currentPlayingVideo = null;
+                        }
+                        if (container) {
+                            container.classList.remove('playing');
+                        }
+                    }
                 });
             });
         });
