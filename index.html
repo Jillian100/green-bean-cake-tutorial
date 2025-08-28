@@ -380,6 +380,8 @@
                 border-radius: 0;
                 box-shadow: none;
                 transform: none;
+                position: relative;
+                overflow: hidden;
             }
 
             .video-container::before {
@@ -393,6 +395,10 @@
                 height: 100vh;
                 object-fit: cover;
                 border-radius: 0;
+                position: absolute;
+                top: 0;
+                left: 0;
+                z-index: 1;
             }
 
             /* 手機版步驟容器調整 */
@@ -402,6 +408,8 @@
                 border-radius: 0;
                 border: none;
                 background: transparent;
+                position: relative;
+                overflow: hidden;
             }
 
             /* 手機版步驟標題調整 */
@@ -410,11 +418,13 @@
                 top: 20px;
                 left: 20px;
                 z-index: 20;
-                background: rgba(0, 0, 0, 0.7);
+                background: rgba(0, 0, 0, 0.8);
                 color: white;
-                padding: 10px 15px;
-                border-radius: 10px;
-                backdrop-filter: blur(10px);
+                padding: 12px 18px;
+                border-radius: 12px;
+                backdrop-filter: blur(15px);
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+                max-width: 80%;
             }
 
             .step-number {
@@ -434,16 +444,18 @@
             .video-container::before {
                 content: "📱 滑動觀看";
                 position: absolute;
-                bottom: 20px;
+                bottom: 30px;
                 left: 50%;
                 transform: translateX(-50%);
-                background: rgba(0, 0, 0, 0.8);
+                background: rgba(0, 0, 0, 0.9);
                 color: white;
-                padding: 8px 16px;
-                border-radius: 25px;
-                font-size: 0.8rem;
-                z-index: 10;
-                opacity: 0.8;
+                padding: 10px 20px;
+                border-radius: 30px;
+                font-size: 0.9rem;
+                z-index: 15;
+                opacity: 0.9;
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+                white-space: nowrap;
             }
 
             .video-container.playing::before {
@@ -472,6 +484,26 @@
             .materials-section,
             .master-section {
                 margin-bottom: 20px;
+            }
+
+            /* 手機版頁面整體調整 */
+            body {
+                overflow-x: hidden;
+            }
+
+            .container {
+                overflow-x: hidden;
+            }
+
+            /* 手機版步驟間距修復 */
+            .steps-section {
+                padding: 0;
+            }
+
+            /* 手機版標題區域調整 */
+            .header {
+                margin-bottom: 20px;
+                padding: 20px;
             }
 
             /* 手機版觸控優化 */
